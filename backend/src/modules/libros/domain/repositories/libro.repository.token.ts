@@ -1,0 +1,1 @@
+export const LIBRO_REPOSITORY = 'LIBRO_REPOSITORY';

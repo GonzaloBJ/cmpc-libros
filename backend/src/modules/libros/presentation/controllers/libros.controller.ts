@@ -26,7 +26,7 @@ export class LibrosController {
 
   @Post()
   insertLibro(@Body() libro: any ) {
-    return this.insertLibro(libro);
+    return this.crudService.createLibro(libro);
   }
 
   @Put(':id')

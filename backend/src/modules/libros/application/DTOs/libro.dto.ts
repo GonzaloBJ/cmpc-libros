@@ -1,8 +1,8 @@
 export interface LibroDTO {
     id: number;
     titulo: string;
-    idAutor: number;
-    idEditorial: number;
-    idGeneroLiterario: number;
+    id_autor: number;
+    id_editorial: number;
+    id_genero_literario: number;
     vigente: boolean;
 }
