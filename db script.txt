@@ -1,0 +1,54 @@
+CREATE TABLE autores (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+	vigente BOOLEAN NOT NULL DEFAULT false
+);
+
+CREATE TABLE editoriales (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+	vigente BOOLEAN NOT NULL DEFAULT false
+);
+
+CREATE TABLE generos_literarios (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+	vigente BOOLEAN NOT NULL DEFAULT false
+);
+
+CREATE TABLE libros (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    titulo VARCHAR(150) NOT NULL,
+
+    id_autor INT NOT NULL,
+    id_editorial INT NOT NULL,
+    id_genero_literario INT NOT NULL,
+    vigente BOOLEAN NOT NULL DEFAULT false,
+
+    CONSTRAINT fk_libros_autor
+        FOREIGN KEY (id_autor)
+        REFERENCES autores(id),
+
+    CONSTRAINT fk_libros_editorial
+        FOREIGN KEY (id_editorial)
+        REFERENCES editoriales(id),
+
+    CONSTRAINT fk_libros_genero
+        FOREIGN KEY (id_genero_literario)
+        REFERENCES generos_literarios(id)
+);
+
+CREATE TABLE stock_libros (
+	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	
+    id_libro INT NOT NULL,
+	precio INTEGER NOT NULL,
+	disponibles INT NOT NULL,
+	fecha_registro DATE NOT NULL,
+	vigente BOOLEAN NOT NULL DEFAULT false,
+
+	CONSTRAINT fk_stock_libros_libros
+        FOREIGN KEY (id_libro)
+        REFERENCES libros(id)
+);
+
