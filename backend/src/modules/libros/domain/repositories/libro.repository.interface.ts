@@ -6,4 +6,5 @@ export interface ILibroRepository {
     create(data: Libro): Promise<Libro>;
     update(id: number, data: Partial<Libro>): Promise<Libro | null>;
     delete(id: number): Promise<{ deletedId: number }[]>;
+    softDelete(id: number): Promise<{ deletedId: number }[]>;
 }

@@ -3,7 +3,7 @@ GET http://localhost:3000/libros
 Accept: application/json
 
 ### libro by id
-GET http://localhost:3000/libros/5
+GET http://localhost:3000/libros/32
 Accept: application/json
 
 ### create libro
@@ -13,16 +13,16 @@ Content-Type: application/json
 {
   "titulo": "TEST",
   "id_autor": 2,
-  "id_genero": 1,
+  "id_genero_literario": 1,
   "id_editorial": 3
 }   
 
 ### delete libro by id
-DELETE http://localhost:3000/libro/5
+DELETE http://localhost:3000/libros/32
 Accept: application/json
 
 ### update libro by id
-PATCH http://localhost:3000/libros/5
+PATCH http://localhost:3000/libros/32
 Content-Type: application/json
 
 {

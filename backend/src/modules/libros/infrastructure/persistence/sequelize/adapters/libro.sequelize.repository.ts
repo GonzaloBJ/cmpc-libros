@@ -8,39 +8,54 @@ import { LibroMapper } from '../../../mappers/libro.mapper';
 
 @Injectable()
 export class LibroSequelizeRepository implements ILibroRepository {
-  constructor(
-    @InjectModel(LibroEntity)
-    private readonly libroModel: typeof LibroEntity,
-  ) {}
-  
-  async findAll(): Promise<Libro[]> {
-    const rows = await this.libroModel.findAll();
-    console.log(this.libroModel.options);
 
-    console.log('DATO ENTITY:', rows[0]);
+    constructor(
+        @InjectModel(LibroEntity)
+        private readonly libroModel: typeof LibroEntity,
+    ) { }
 
-    return rows.map(LibroMapper.toDomain);
-  }
+    async findAll(): Promise<Libro[]> {
+        const rows = await this.libroModel.findAll();
 
-  async findById(id: number): Promise<Libro | null> {
-    const entity = await this.libroModel.findByPk(id);
-    if (!entity) return null;
-    
-    return LibroMapper.toDomain(entity);
-  }
+        return rows.map(LibroMapper.toDomain);
+    }
 
-  async create(libro: Libro): Promise<Libro> {
-    const rawData = LibroMapper.toPersistence(libro);
-    const created = await this.libroModel.create(rawData);
-    
-    return LibroMapper.toDomain(created);
-  }
+    async findById(id: number): Promise<Libro | null> {
+        const entity = await this.libroModel.findByPk(id);
+        if (!entity) return null;
 
-  update(id: number, data: Partial<Libro>): Promise<Libro | null> {
-    throw new Error('Method not implemented.');
-  }
+        return LibroMapper.toDomain(entity);
+    }
 
-  delete(id: number): Promise<{ deletedId: number; }[]> {
-    throw new Error('Method not implemented.');
-  }
+    async create(libro: Libro): Promise<Libro> {
+        const rawData = LibroMapper.toPersistence(libro);
+        const created = await this.libroModel.create(rawData);
+
+        return LibroMapper.toDomain(created);
+    }
+
+    async update(id: number, data: Partial<Libro>): Promise<Libro | null> {
+        const entity = await this.libroModel.findByPk(id);
+        if (!entity) return null;
+
+        const updated = await entity.update(data);
+
+        return LibroMapper.toDomain(updated);
+    }
+
+    async delete(id: number): Promise<{ deletedId: number; }[]> {
+        const destroyedId = await this.libroModel.destroy({ where: { id } });
+
+        return [{ deletedId: destroyedId }];
+    }
+
+    async softDelete(id: number): Promise<{ deletedId: number; }[]> {
+        const entity = await this.libroModel.findByPk(id);
+        if (!entity) return [{ deletedId: 0 }];
+
+        const updated = await entity.update({ vigente: false });
+        const destroyedId = updated.id;
+
+        return [{ deletedId: destroyedId }];
+    }
 }

@@ -1,5 +1,4 @@
-export interface LibroDTO {
-    id: number;
+export class CreateLibroDto {
     titulo: string;
     id_autor: number;
     id_editorial: number;
