@@ -1,6 +1,9 @@
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ29uemFsb2JhcmFob25hakBnbWFpbC5jb20iLCJpYXQiOjE3Njg3NjE3MjgsImV4cCI6MTc2ODc2NTMyOH0.wQ3v4uhqaTtGe2ePVzt_ugWdOCeU6VSkdSbxZ9LhQNA
+
 ### libros all
 GET http://localhost:3000/libros
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ### libro by id
 GET http://localhost:3000/libros/32
@@ -27,4 +30,23 @@ Content-Type: application/json
 
 {
   "titulo": "TEST UPDATE"
+}
+
+
+### login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "gonzalobarahonaj@gmail.com",
+  "password": "1234"
+}
+
+### create user
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "gonzalobarahonaj@gmail.com",
+  "password": "1234"
 }

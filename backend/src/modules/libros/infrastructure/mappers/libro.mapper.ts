@@ -13,14 +13,14 @@ export class LibroMapper {
     );
   }
 
-  static toPersistence(domain: Libro): any {
-    return {
-      ID: domain.id,
-      titulo: domain.titulo,
-      id_autor: domain.idAutor,
-      id_editorial: domain.idEditorial,
-      id_genero_literario: domain.idGeneroLiterario,
-      vigente: domain.vigente,
-    };
+  static toPersistence(domain: Libro): LibroEntity {
+    let libroEntity = new LibroEntity();
+    libroEntity.id = domain.id;
+    libroEntity.titulo = domain.titulo;
+    libroEntity.id_autor = domain.idAutor;
+    libroEntity.id_editorial = domain.idEditorial;
+    libroEntity.id_genero_literario = domain.idGeneroLiterario;
+    libroEntity.vigente = domain.vigente;
+    return libroEntity;
   }
 }

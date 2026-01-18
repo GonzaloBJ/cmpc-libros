@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { LibrosModule } from './modules/libros/libros.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 @Module({
@@ -26,6 +27,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
     }),
     LibrosModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
