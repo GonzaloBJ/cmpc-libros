@@ -52,3 +52,14 @@ CREATE TABLE stock_libros (
         REFERENCES libros(id)
 );
 
+CREATE INDEX idx_stock_libros_id_libro ON stock_libros (id_libro);
+
+CREATE TABLE usuarios (
+	id INT  GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email VARCHAR(200) NOT NULL,
+    password_hash VARCHAR(250) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT true
+);
+
+CREATE UNIQUE INDEX idx_usuarios_email ON usuarios (email);
+
