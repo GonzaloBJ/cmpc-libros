@@ -3,7 +3,7 @@
 ## Requerimientos Funcionales
 
 * **Frontend (React con TypeScript)**
-    * [❌] Login de autenticación.
+    * [✅] Login de autenticación.
     * [❌] Desarrollar un listado de libros con las siguientes características: - Filtrado avanzado por género, editorial, autor y disponibilidad. - Ordenamiento dinámico por múltiples campos. - Paginación del lado del servidor. - Búsqueda en tiempo real con debounce. 
     * [❌] Formulario de alta/edición de libro con: - Validación reactiva de formularios. - Carga de una imágen por libro. 
     * [❌] Visualizar los datos disponibles sobre un libro 

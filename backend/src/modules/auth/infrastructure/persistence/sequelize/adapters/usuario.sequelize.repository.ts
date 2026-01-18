@@ -2,7 +2,6 @@
 import { IUsuarioRepository } from 'src/modules/auth/domain/repositories/usuario.repository.interface';
 import { UsuarioEntity } from '../entities/usuario.entity';
 import { Usuario } from 'src/modules/auth/domain/models/usuario.model';
-import { console } from 'inspector';
 import { UsuarioMapper } from '../../../mappers/usuario.mapper';
 
 export class UsuarioSequelizeRepository implements IUsuarioRepository {

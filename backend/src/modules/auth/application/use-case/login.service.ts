@@ -33,6 +33,7 @@ export class LoginService {
     }
 
     return {
+      email: usuario.email,
       accessToken: this.tokenService.generate(usuario),
     };
   }
