@@ -7,6 +7,7 @@ import { LibroMapper } from '../../../mappers/libro.mapper';
 import { AutorEntity } from '../entities/autor.entity';
 import { GeneroLiterarioEntity } from '../entities/genero-literario.entity';
 import { EditorialEntity } from '../entities/editorial.entity';
+import { PaginatedResult } from 'src/modules/libros/application/DTOs/paginated-result.dto';
 
 
 
@@ -41,6 +42,40 @@ export class LibroSequelizeRepository implements ILibroRepository {
         if (!entity) return null;
 
         return LibroMapper.toDomain(entity);
+    }
+
+    async findAllPaginated(
+        page: number,
+        limit: number,
+    ): Promise<PaginatedResult<Libro>> {
+        console.log('repo sequelize')
+        const offset = (page - 1) * limit;
+        try {
+            const { rows, count } = await this.libroModel.findAndCountAll({
+                limit,
+                offset,
+                distinct: true,
+                col: 'id',
+                include: [
+                    { model: AutorEntity },
+                    { model: EditorialEntity },
+                    { model: GeneroLiterarioEntity },
+                ],
+                order: [['id', 'ASC']],
+            });
+            console.log('rows:', rows, 'count:', count);
+
+            return {
+                data: rows.map(LibroMapper.toDomain),
+                page,
+                limit,
+                total: count,
+                totalPages: Math.ceil(count / limit),
+            };
+        } catch (error) {
+            console.error('Error in findAllPaginated:', error);
+            throw error;
+        }
     }
 
     async create(libro: Libro): Promise<Libro> {

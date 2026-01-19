@@ -1,21 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LibrosTable } from '../components/LibrosTable';
-import { fetchLibros } from '../store/libros.thunks';
 import { useLibros } from '../hooks/libros.hook';
 
 export function LibrosPage() {
-  const { libros, loading, error, createLibro } = useLibros();
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const { libros, loading, error, fetchLibros } = useLibros();
 
   useEffect(() => {
-    fetchLibros();
-  }, []);
+    fetchLibros({ page, limit });
+  }, [page, limit]);
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <>
-      <LibrosTable libros={libros} />
+      <LibrosTable libros={libros} page={page} setPage={setPage} />
     </>
   );
 }

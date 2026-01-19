@@ -1,28 +1,30 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { Libro } from '../types/libros.type';
-import { createLibro, getLibros } from '../services/libros.service';
+import { createLibro, getLibrosPaginated } from '../services/libros.service';
+import type { PaginatedResult } from '../types/paginated-result';
+import type { CreateLibroDto } from '../types/create.libro.type';
 
-type CreateLibroPayload = {
-    titulo: string,
-    idAutor: number,
-    idEditorial: number,
-    idGeneroLiterario: number,
-    vigente: boolean,
+
+type CreateLibroPayload = CreateLibroDto;
+
+type FetchAllLibroPayload = {
+    page: number,
+    limit: number,
 };
 
-export const fetchLibros = createAsyncThunk<
-    Libro[],
-    void,
-    { rejectValue: string }
+export const fetchLibrosThunk = createAsyncThunk<
+  PaginatedResult<Libro>,
+  FetchAllLibroPayload,
+  { rejectValue: string }
 >(
-    'libros/fetchAll',
-    async (_, { rejectWithValue }) => {
-        try {
-            return await getLibros();
-        } catch (err: any) {
-            return rejectWithValue(err.message ?? 'Error cangando libros');
-        }
+  'libros/fetchAll',
+  async (payload, { rejectWithValue }) => {
+    try {
+      return await getLibrosPaginated(payload.page, payload.limit);
+    } catch (err: any) {
+      return rejectWithValue(err.message ?? 'Error cargando libros');
     }
+  }
 );
 
 export const createLibroThunk = createAsyncThunk<
@@ -31,7 +33,7 @@ export const createLibroThunk = createAsyncThunk<
     { rejectValue: string }
 >(
     'libros/create',
-    async (payload: CreateLibroPayload, { rejectWithValue }) => {
+    async (payload, { rejectWithValue }) => {
         try {
             return await createLibro(payload);
         } catch (err: any) {

@@ -1,15 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { Libro } from '../types/libros.type';
-import { createLibroThunk, fetchLibros } from './libros.thunks';
+import { createLibroThunk, fetchLibrosThunk } from './libros.thunks';
+import type { PaginatedResult } from '../types/paginated-result';
 
 type LibrosState = {
-    items: Libro[];
+    items: PaginatedResult<Libro>;
     loading: boolean;
     error: string | null;
 };
 
 const initialState: LibrosState = {
-    items: [],
+    items: {
+        data: [],
+        page: 1,
+        limit: 10,
+        total: 0,
+        totalPages: 0,
+    },
     loading: false,
     error: null,
 };
@@ -21,15 +28,15 @@ const librosSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // GET
-            .addCase(fetchLibros.pending, (state) => {
+            .addCase(fetchLibrosThunk.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchLibros.fulfilled, (state, action) => {
+            .addCase(fetchLibrosThunk.fulfilled, (state, action) => {
                 state.items = action.payload;
                 state.loading = false;
             })
-            .addCase(fetchLibros.rejected, (state, action) => {
+            .addCase(fetchLibrosThunk.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload ?? 'error innesperado';
             })
@@ -40,7 +47,7 @@ const librosSlice = createSlice({
                 state.error = null;
             })
             .addCase(createLibroThunk.fulfilled, (state, action) => {
-                state.items.unshift(action.payload);
+                state.items.data.unshift(action.payload);
                 state.loading = false;
             })
             .addCase(createLibroThunk.rejected, (state, action) => {

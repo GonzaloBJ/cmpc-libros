@@ -1,4 +1,9 @@
-@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ29uemFsb2JhcmFob25hakBnbWFpbC5jb20iLCJpYXQiOjE3Njg3ODAwMjksImV4cCI6MTc2ODc4MzYyOX0.nlDbUOEc_lKInoWSist0XrV2ecIiDdR-dzl6vfmOJsw
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ29uemFsb2JhcmFob25hakBnbWFpbC5jb20iLCJpYXQiOjE3Njg3ODQ1NTcsImV4cCI6MTc2ODc4ODE1N30.XvikYZn4wJt2ANGFiAfOD2CeRxqFEU5k0hoWs5CzYCM
+
+### libros all
+GET http://localhost:3000/libros/test
+Accept: application/json
+Authorization: Bearer {{token}}
 
 ### libros all
 GET http://localhost:3000/libros
@@ -7,6 +12,19 @@ Authorization: Bearer {{token}}
 
 ### libro by id
 GET http://localhost:3000/libros/32
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### libro by paginated
+GET http://localhost:3000/libros/paginated
+?page=1
+&limit=5
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+### libro to svc
+GET http://localhost:3000/libros/to-svc
 Accept: application/json
 Authorization: Bearer {{token}}
 

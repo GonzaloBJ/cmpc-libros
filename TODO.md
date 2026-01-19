@@ -4,7 +4,10 @@
 
 * **Frontend (React con TypeScript)**
     * [✅] Login de autenticación.
-    * [❌] Desarrollar un listado de libros con las siguientes características: - Filtrado avanzado por género, editorial, autor y disponibilidad. - Ordenamiento dinámico por múltiples campos. - Paginación del lado del servidor. - Búsqueda en tiempo real con debounce. 
+    * [✅] Desarrollar un listado de libros con las siguientes características: 
+    - [❌] Filtrado avanzado por género, editorial, autor y disponibilidad. 
+    - [❌] Ordenamiento dinámico por múltiples campos. 
+    - [✅] Paginación del lado del servidor. - Búsqueda en tiempo real con debounce. 
     * [❌] Formulario de alta/edición de libro con: - Validación reactiva de formularios. - Carga de una imágen por libro. 
     * [❌] Visualizar los datos disponibles sobre un libro 
 * **Backend (NestJS con TypeScript)**
@@ -16,8 +19,8 @@
     * [❌] Implementar un sistema de logging para auditoría de operaciones. 
 * **Base de Datos (PostgreSQL con sequelize ORM)**
     * [✅] Diseñar un modelo de datos normalizado que incluya: 
-    - Relaciones apropiadas entre las tablas. 
-    - Índices para optimizar consultas frecuentes. 
+    - [✅]Relaciones apropiadas entre las tablas. 
+    - [✅]Índices para optimizar consultas frecuentes. 
     * [❌] Utilizar transacciones para garantizar la integridad de los datos en operaciones críticas. 
 * **Testing**
     * [❌] Implementar tests unitarios para componentes y servicios en Nest. 
@@ -27,9 +30,9 @@
     * [❌] Proporcionar un docker-compose.yml para el despliegue local de todo el stack. 
 * **Documentación** 
     * [❌] Crear un README.md detallado con: 
-    - Instrucciones de instalación y configuración. 
-    - Guía de uso de la aplicación. 
-    - Descripción de la arquitectura y decisiones de diseño. 
+    - [❌] Instrucciones de instalación y configuración. 
+    - [❌] Guía de uso de la aplicación. 
+    - [❌] Descripción de la arquitectura y decisiones de diseño. 
     * [❌] Documentar la API utilizando Swagger/OpenAPI. 
     * [❌] Proporcionar un diagrama de la arquitectura del sistema. 
     * [❌] Incluir un modelo relacional de la base de datos (puede ser en formato imagen o utilizando 

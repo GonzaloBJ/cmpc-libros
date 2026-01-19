@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotImplementedException, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotImplementedException, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { LibrosCRUDLService } from '../../application/use-case/libros.crudl.service';
 import { CreateLibroDto } from '../../application/DTOs/create.libro.dto';
 import { UpdateLibroDto } from '../../application/DTOs/update.libro.dto';
@@ -15,10 +15,16 @@ export class LibrosController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get(':id')
-    getLibroByID(@Param('id') id: number) {
-
-        return this.crudService.getLibroById(id);
+    @Get('paginated')
+    getLibrosPaginated(
+        @Query('page') page: number,
+        @Query('limit') limit: number,
+    ) {
+        console.log('Pagination params - page:', page, 'limit:', limit);
+        return this.crudService.getLibrosPaginated(
+            Number(page),
+            Number(limit),
+        );
     }
 
     @UseGuards(JwtAuthGuard)
@@ -26,6 +32,13 @@ export class LibrosController {
     getLibrosToSVC(): string {
 
         throw new NotImplementedException('metodo no implementado aun.');
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    getLibroByID(@Param('id') id: number) {
+
+        return this.crudService.getLibroById(id);
     }
 
     @UseGuards(JwtAuthGuard)

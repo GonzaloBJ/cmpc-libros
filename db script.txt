@@ -63,3 +63,37 @@ CREATE TABLE usuarios (
 
 CREATE UNIQUE INDEX idx_usuarios_email ON usuarios (email);
 
+----------
+
+INSERT INTO public.stock_libros (id_libro, precio, disponibles, fecha_registro, vigente) VALUES
+(1, 25.50, 15, CURRENT_DATE, true),  -- Cien años de soledad
+(2, 22.00, 10, CURRENT_DATE, true),  -- El amor en los tiempos del cólera
+(3, 15.00, 8, CURRENT_DATE, true),   -- Crónica de una muerte anunciada
+(4, 20.00, 12, CURRENT_DATE, true),  -- La casa de los espíritus
+(5, 18.50, 5, CURRENT_DATE, true),   -- Paula
+(6, 17.00, 7, CURRENT_DATE, true),   -- Eva Luna
+(7, 30.00, 20, CURRENT_DATE, true),  -- El Hobbit
+(8, 28.00, 25, CURRENT_DATE, true),  -- La comunidad del anillo
+(9, 28.00, 22, CURRENT_DATE, true),  -- Las dos torres
+(10, 28.00, 18, CURRENT_DATE, true), -- El retorno del rey
+(11, 19.90, 30, CURRENT_DATE, true), -- 1984
+(12, 14.50, 15, CURRENT_DATE, true), -- Rebelión en la granja
+(13, 35.00, 10, CURRENT_DATE, true), -- It
+(14, 24.00, 12, CURRENT_DATE, true), -- El resplandor
+(15, 21.00, 9, CURRENT_DATE, true),  -- Cementerio de animales
+(16, 26.00, 6, CURRENT_DATE, true),  -- Kafka en la orilla
+(17, 23.00, 11, CURRENT_DATE, true), -- Tokio Blues
+(18, 20.00, 4, CURRENT_DATE, true),  -- Rayuela
+(19, 16.00, 8, CURRENT_DATE, true),  -- Bestiario
+(20, 22.50, 40, CURRENT_DATE, true), -- Harry Potter 1
+(21, 22.50, 35, CURRENT_DATE, true), -- Harry Potter 2
+(22, 22.50, 30, CURRENT_DATE, true), -- Harry Potter 3
+(23, 27.00, 14, CURRENT_DATE, true), -- El imperio final
+(24, 27.00, 12, CURRENT_DATE, true), -- El pozo de la ascensión
+(25, 27.00, 15, CURRENT_DATE, true), -- El héroe de las eras
+(26, 12.00, 20, CURRENT_DATE, true), -- Asesinato en el Orient Express
+(27, 12.00, 18, CURRENT_DATE, true), -- Diez negritos
+(28, 12.00, 15, CURRENT_DATE, true), -- Muerte en el Nilo
+(29, 21.50, 10, CURRENT_DATE, true), -- Ensayo sobre la ceguera
+(30, 24.00, 5, CURRENT_DATE, true);  -- El otoño del patriarca
+

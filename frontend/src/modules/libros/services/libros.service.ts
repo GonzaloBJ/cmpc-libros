@@ -1,13 +1,15 @@
 import { httpClient } from '../../../shared/services/http-client';
+import type { CreateLibroDto } from '../types/create.libro.type';
 import type { Libro } from '../types/libros.type';
+import type { PaginatedResult } from '../types/paginated-result';
 
-type CreateLibroDto = Omit<
-    Libro,
-    'id' | 'createdAt' | 'updatedAt'
->;
+// type CreateLibroDto = Omit<
+//     Libro,
+//     'id' | 'createdAt' | 'updatedAt'
+// >;
 
-export async function getLibros(): Promise<Libro[]> {
-    const response = await httpClient.get<Libro[]>('/libros');
+export async function getLibrosPaginated(page: number, limit: number): Promise<PaginatedResult<Libro>> {
+    const response = await httpClient.get<PaginatedResult<Libro>>(`/libros/paginated?page=${page}&limit=${limit}`);
     return response.data;
 }
 

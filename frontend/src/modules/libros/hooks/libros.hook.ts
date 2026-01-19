@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createLibroThunk, fetchLibros } from '../store/libros.thunks';
+import { createLibroThunk, fetchLibrosThunk } from '../store/libros.thunks';
 import type { AppDispatch, RootState } from '../../../storage';
 
 
@@ -12,6 +11,7 @@ type CreateLibroInput = {
     vigente: boolean;
 };
 
+
 export function useLibros() {
     const dispatch = useDispatch<AppDispatch>();
 
@@ -19,9 +19,10 @@ export function useLibros() {
         (state: RootState) => state.libros
     );
 
-    useEffect(() => {
-        dispatch(fetchLibros());
-    }, [dispatch]);
+
+    const fetchLibros = (params: { page: number; limit: number }) => {
+        dispatch(fetchLibrosThunk(params));
+    };
 
     const createLibro = (data: CreateLibroInput) => {
         dispatch(createLibroThunk(data));
@@ -31,6 +32,7 @@ export function useLibros() {
         libros: items,
         loading,
         error,
+        fetchLibros,
         createLibro,
     };
 }

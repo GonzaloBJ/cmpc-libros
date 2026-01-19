@@ -21,6 +21,11 @@ export class LibrosCRUDLService {
         return this.libroRepository.findById(id);
     }
 
+    getLibrosPaginated(page: number, limit: number) {
+        console.log('Service ');
+        return this.libroRepository.findAllPaginated(page, limit);
+    }
+
     createLibro(dto: CreateLibroDto): Promise<Libro> {
         const libro: Libro = LibroApplicationMapper.fromCreateDtoToDomain(dto);
         return this.libroRepository.create(libro);
