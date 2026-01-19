@@ -1,4 +1,4 @@
-@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ29uemFsb2JhcmFob25hakBnbWFpbC5jb20iLCJpYXQiOjE3Njg3ODQ1NTcsImV4cCI6MTc2ODc4ODE1N30.XvikYZn4wJt2ANGFiAfOD2CeRxqFEU5k0hoWs5CzYCM
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ29uemFsb2JhcmFob25hakBnbWFpbC5jb20iLCJpYXQiOjE3Njg4MjUwNDIsImV4cCI6MTc2ODgyODY0Mn0.Ighw4EYpjEQha362YyK8Hn2rPZvFp0-qUNUZZ3yhI54
 
 ### libros all
 GET http://localhost:3000/libros/test
@@ -73,3 +73,10 @@ Authorization: Bearer {{token}}
   "email": "gonzalobarahonaj@gmail.com",
   "password": "1234"
 }
+
+
+
+### stock libro by id
+GET http://localhost:3000/stock-libros/30
+Accept: application/json
+Authorization: Bearer {{token}}

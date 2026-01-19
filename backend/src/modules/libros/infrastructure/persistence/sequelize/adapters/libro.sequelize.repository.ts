@@ -48,34 +48,28 @@ export class LibroSequelizeRepository implements ILibroRepository {
         page: number,
         limit: number,
     ): Promise<PaginatedResult<Libro>> {
-        console.log('repo sequelize')
         const offset = (page - 1) * limit;
-        try {
-            const { rows, count } = await this.libroModel.findAndCountAll({
-                limit,
-                offset,
-                distinct: true,
-                col: 'id',
-                include: [
-                    { model: AutorEntity },
-                    { model: EditorialEntity },
-                    { model: GeneroLiterarioEntity },
-                ],
-                order: [['id', 'ASC']],
-            });
-            console.log('rows:', rows, 'count:', count);
 
-            return {
-                data: rows.map(LibroMapper.toDomain),
-                page,
-                limit,
-                total: count,
-                totalPages: Math.ceil(count / limit),
-            };
-        } catch (error) {
-            console.error('Error in findAllPaginated:', error);
-            throw error;
-        }
+        const { rows, count } = await this.libroModel.findAndCountAll({
+            limit,
+            offset,
+            distinct: true,
+            col: 'id',
+            include: [
+                { model: AutorEntity },
+                { model: EditorialEntity },
+                { model: GeneroLiterarioEntity },
+            ],
+            order: [['id', 'ASC']],
+        });
+
+        return {
+            data: rows.map(LibroMapper.toDomain),
+            page,
+            limit,
+            total: count,
+            totalPages: Math.ceil(count / limit),
+        };
     }
 
     async create(libro: Libro): Promise<Libro> {

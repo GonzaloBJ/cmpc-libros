@@ -98,37 +98,3 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 
-## Arquitectura 
-se opto por una arquitectura clean, lo que permite menor dependencia entre los elementos y alta escalabilidad.
-```
-┌──────────────────────────┐
-│ Frameworks & Drivers     │ ← Controllers, DB, UI
-├──────────────────────────┤
-│ Interface Adapters       │ ← Mappers, Repositorios
-├──────────────────────────┤
-│ Application              │ ← Use Cases
-├──────────────────────────┤
-│ Domain                   │ ← Entidades y reglas
-└──────────────────────────┘
-```
-
-## Estructura del proyecto 
-bajo el uso de la arquitecura clean, el proyecto esta estructurado de la siguiente manera:
-```
-src/
-├── Domain/
-│   ├── Entities/
-│   └── Repositories/        ← Ports de salida
-│
-├── Application/
-│   ├── UseCases/            ← Ports de entrada
-│   └── DTOs/
-│
-├── Infrastructure/
-│   ├── Persistence/
-│   │   └── Repositories/    ← Adapters de salida
-│   └── ExternalServices/
-│
-└── WebAPI/
-    └── Controllers/         ← Adapters de entrada
-```

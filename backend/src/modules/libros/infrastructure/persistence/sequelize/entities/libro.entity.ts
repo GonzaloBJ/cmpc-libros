@@ -4,14 +4,14 @@ import {
   Column,
   Model,
   DataType,
-  PrimaryKey,
-  AutoIncrement,
   ForeignKey,
-  BelongsTo
+  BelongsTo,
+  HasMany
 } from 'sequelize-typescript';
 import { EditorialEntity } from './editorial.entity';
 import { AutorEntity } from './autor.entity';
 import { GeneroLiterarioEntity } from './genero-literario.entity';
+import { StockLibrosEntity } from './stock-libros.entity';
 
 @Table({
   tableName: 'libros',
@@ -21,11 +21,6 @@ export class LibroEntity extends Model<
   sequelize.InferAttributes<LibroEntity>,
   sequelize.InferCreationAttributes<LibroEntity>
 > {
-  // @PrimaryKey
-  // @AutoIncrement
-  // @Column({ field: 'id', type: DataType.INTEGER })
-  // declare id: sequelize.CreationOptional<number>;
-
   @Column({ field: 'titulo', type: DataType.STRING(150), allowNull: false })
   titulo: string;
 
@@ -52,4 +47,7 @@ export class LibroEntity extends Model<
 
   @Column({ field: 'vigente', type: DataType.BOOLEAN, allowNull: false })
   vigente: boolean;
+
+  @HasMany(() => StockLibrosEntity)
+        libros: StockLibrosEntity[];
 }

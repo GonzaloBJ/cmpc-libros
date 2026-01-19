@@ -8,20 +8,31 @@ import { LIBRO_REPOSITORY } from './domain/repositories/libro.repository.token';
 import { AutorEntity } from './infrastructure/persistence/sequelize/entities/autor.entity';
 import { EditorialEntity } from './infrastructure/persistence/sequelize/entities/editorial.entity';
 import { GeneroLiterarioEntity } from './infrastructure/persistence/sequelize/entities/genero-literario.entity';
+import { StockLibrosEntity } from './infrastructure/persistence/sequelize/entities/stock-libros.entity';
+import { StockLibrosCRUDLService } from './application/use-case/stock-libros.crudl.service';
+import { STOCK_LIBROS_REPOSITORY } from './domain/repositories/stock-libros.repository.token';
+import { StockLibrosSequelizeRepository } from './infrastructure/persistence/sequelize/adapters/stock-libros.sequelize.repository';
+import { StockLibrosController } from './presentation/controllers/stock-libros.controller';
 
 @Module({
     imports: [SequelizeModule.forFeature([
         LibroEntity,
         AutorEntity,
         EditorialEntity,
-        GeneroLiterarioEntity
+        GeneroLiterarioEntity,
+        StockLibrosEntity
     ])],
-    controllers: [LibrosController],
+    controllers: [LibrosController, StockLibrosController],
     providers: [
         LibrosCRUDLService,
         {
             provide: LIBRO_REPOSITORY,
             useClass: LibroSequelizeRepository,
+        },
+        StockLibrosCRUDLService,
+        {
+            provide: STOCK_LIBROS_REPOSITORY,
+            useClass: StockLibrosSequelizeRepository,
         },
     ],
 })
