@@ -1,3 +1,6 @@
+import { Autor } from "../../domain/models/autor.model";
+import { Editorial } from "../../domain/models/editorial.model";
+import { GeneroLiterario } from "../../domain/models/genero-literario.model";
 import { Libro } from "../../domain/models/libro.model";
 import { CreateLibroDto } from "../DTOs/create.libro.dto";
 import { UpdateLibroDto } from "../DTOs/update.libro.dto";
@@ -8,30 +11,20 @@ export class LibroApplicationMapper {
         return new Libro(
             null!,
             dto.titulo,
-            dto.id_autor,
-            dto.id_editorial,
-            dto.id_genero_literario,
+            new Autor(dto.id_autor, null!, null!),
+            new Editorial(dto.id_editorial, null!, null!),
+            new GeneroLiterario(dto.id_genero_literario, null!, null!),
             true,
         );
     }
-    static fromUpdateDtoToDomain(dto: UpdateLibroDto): Partial<Libro> {
-        const libro: Partial<Libro> = {};
-
-        if (dto.titulo !== undefined) {
-            libro.titulo = dto.titulo;
-        }
-        if (dto.id_autor !== undefined) {
-            libro.idAutor = dto.id_autor;
-        }
-        if (dto.id_editorial !== undefined) {
-            libro.idEditorial = dto.id_editorial;
-        }
-        if (dto.id_genero_literario !== undefined) {
-            libro.idGeneroLiterario = dto.id_genero_literario;
-        }
-        if (dto.vigente !== undefined) {
-            libro.vigente = dto.vigente;
-        }
-        return libro;
+    static fromUpdateDtoToDomain(dto: UpdateLibroDto): Libro {
+        return new Libro(
+            null!,
+            dto.titulo??null!,
+            new Autor(dto.id_autor??null!, null!, null!),
+            new Editorial(dto.id_editorial??null!, null!, null!),
+            new GeneroLiterario(dto.id_genero_literario??null!, null!, null!),
+            dto.vigente??null!,
+        );
     }
 }

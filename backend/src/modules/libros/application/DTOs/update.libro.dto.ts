@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateLibroDto } from './create.libro.dto';
-
-export class UpdateLibroDto extends PartialType(CreateLibroDto) {}
+export class UpdateLibroDto {
+    titulo?: string;
+    id_autor?: number;
+    id_editorial?: number;
+    id_genero_literario?: number;
+    vigente?: boolean;
+}

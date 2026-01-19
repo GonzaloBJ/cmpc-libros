@@ -1,4 +1,4 @@
-@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ29uemFsb2JhcmFob25hakBnbWFpbC5jb20iLCJpYXQiOjE3Njg3NjE3MjgsImV4cCI6MTc2ODc2NTMyOH0.wQ3v4uhqaTtGe2ePVzt_ugWdOCeU6VSkdSbxZ9LhQNA
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiZ29uemFsb2JhcmFob25hakBnbWFpbC5jb20iLCJpYXQiOjE3Njg3ODAwMjksImV4cCI6MTc2ODc4MzYyOX0.nlDbUOEc_lKInoWSist0XrV2ecIiDdR-dzl6vfmOJsw
 
 ### libros all
 GET http://localhost:3000/libros
@@ -8,10 +8,12 @@ Authorization: Bearer {{token}}
 ### libro by id
 GET http://localhost:3000/libros/32
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ### create libro
 POST http://localhost:3000/libros
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "titulo": "TEST",
@@ -23,13 +25,15 @@ Content-Type: application/json
 ### delete libro by id
 DELETE http://localhost:3000/libros/32
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ### update libro by id
 PATCH http://localhost:3000/libros/32
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "titulo": "TEST UPDATE"
+  "titulo": "TEST UPDATE final"
 }
 
 
@@ -45,6 +49,7 @@ Content-Type: application/json
 ### create user
 POST http://localhost:3000/auth/register
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "email": "gonzalobarahonaj@gmail.com",

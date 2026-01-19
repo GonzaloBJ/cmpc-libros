@@ -30,8 +30,8 @@ export class LibrosCRUDLService {
         return this.libroRepository.softDelete(id);
     }
 
-    updateLibro(id: number, dto: Partial<UpdateLibroDto>): Promise<Libro | null> {
-        const libro: Partial<Libro> = LibroApplicationMapper.fromUpdateDtoToDomain(dto);
+    updateLibro(id: number, dto: UpdateLibroDto): Promise<Libro | null> {
+        const libro: Libro = LibroApplicationMapper.fromUpdateDtoToDomain(dto);
         return this.libroRepository.update(id, libro);
     }
 }

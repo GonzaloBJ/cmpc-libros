@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { LibroEntity } from '../entities/libro.entity';
 import { ILibroRepository } from 'src/modules/libros/domain/repositories/libro.repository.interface';
 import { Libro } from 'src/modules/libros/domain/models/libro.model';
 import { LibroMapper } from '../../../mappers/libro.mapper';
+import { AutorEntity } from '../entities/autor.entity';
+import { GeneroLiterarioEntity } from '../entities/genero-literario.entity';
+import { EditorialEntity } from '../entities/editorial.entity';
+
 
 
 @Injectable()
@@ -15,13 +19,25 @@ export class LibroSequelizeRepository implements ILibroRepository {
     ) { }
 
     async findAll(): Promise<Libro[]> {
-        const rows = await this.libroModel.findAll();
+        const libros = await this.libroModel.findAll({
+            include: [
+                { model: AutorEntity },
+                { model: EditorialEntity },
+                { model: GeneroLiterarioEntity },
+            ],
+        });
 
-        return rows.map(LibroMapper.toDomain);
+        return libros.map(LibroMapper.toDomain);
     }
 
     async findById(id: number): Promise<Libro | null> {
-        const entity = await this.libroModel.findByPk(id);
+        const entity = await this.libroModel.findByPk(id, {
+            include: [
+                { model: AutorEntity },
+                { model: EditorialEntity },
+                { model: GeneroLiterarioEntity },
+            ],
+        });
         if (!entity) return null;
 
         return LibroMapper.toDomain(entity);
@@ -31,14 +47,42 @@ export class LibroSequelizeRepository implements ILibroRepository {
         const rawData = LibroMapper.toPersistence(libro);
         const created = await this.libroModel.create(rawData);
 
-        return LibroMapper.toDomain(created);
+        const withRelations = await this.libroModel.findByPk(created.id, {
+            include: [AutorEntity, EditorialEntity, GeneroLiterarioEntity],
+        });
+
+        return LibroMapper.toDomain(withRelations!);
     }
 
-    async update(id: number, data: Partial<Libro>): Promise<Libro | null> {
+    async update(id: number, data: Libro): Promise<Libro | null> {
         const entity = await this.libroModel.findByPk(id);
         if (!entity) return null;
 
-        const updated = await entity.update(data);
+        let raw = {};
+
+        if (data.titulo !== null && data.titulo !== undefined)
+            raw = { ...raw, titulo: data.titulo };
+        if (data.vigente !== null && data.vigente !== undefined)
+            raw = { ...raw, vigente: data.vigente };
+        if (data.autor?.id !== null && data.autor?.id !== undefined)
+            raw = { ...raw, id_autor: data.autor.id };
+        if (data.editorial?.id !== null && data.editorial?.id !== undefined)
+            raw = { ...raw, id_editorial: data.editorial.id };
+        if (data.generoLiterario?.id !== null && data.generoLiterario?.id !== undefined)
+            raw = { ...raw, id_genero_literario: data.generoLiterario.id };
+
+        await entity.update(
+            raw,
+            { where: { id: id } },
+        );
+
+        const updated = await this.libroModel.findByPk(id, {
+            include: [AutorEntity, EditorialEntity, GeneroLiterarioEntity],
+        });
+
+        if (!updated) {
+            throw new NotFoundException('Libro no encontrado');
+        }
 
         return LibroMapper.toDomain(updated);
     }

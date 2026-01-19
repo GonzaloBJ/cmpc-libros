@@ -15,7 +15,7 @@
     * [✅] Utilizar técnicas de soft delete para el manejo de eliminaciones. 
     * [❌] Implementar un sistema de logging para auditoría de operaciones. 
 * **Base de Datos (PostgreSQL con sequelize ORM)**
-    * [❌] Diseñar un modelo de datos normalizado que incluya: 
+    * [✅] Diseñar un modelo de datos normalizado que incluya: 
     - Relaciones apropiadas entre las tablas. 
     - Índices para optimizar consultas frecuentes. 
     * [❌] Utilizar transacciones para garantizar la integridad de los datos en operaciones críticas. 
